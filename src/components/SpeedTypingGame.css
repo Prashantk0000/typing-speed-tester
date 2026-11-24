@@ -1,0 +1,313 @@
+/* ========== Global Reset & Theme ========== */
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --correct: #4ade80;
+  --incorrect: #f87171;
+  --incorrect-bg: rgba(248, 113, 113, 0.15);
+  --active-bg: rgba(56, 189, 248, 0.25);
+  --border: #334155;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --radius: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========== Game Container ========== */
+.game-container {
+  max-width: 820px;
+  margin: 40px auto;
+  padding: 36px 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: text;
+  position: relative;
+}
+
+.game-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.game-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+}
+
+/* ========== Hidden Input ========== */
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ========== Typing Area ========== */
+.typing-area {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.paragraph-text {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
+  font-size: 1.15rem;
+  line-height: 2;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  user-select: none;
+  word-break: break-all;
+}
+
+.paragraph-text span {
+  position: relative;
+  transition: color 0.1s ease;
+  border-radius: 2px;
+  padding: 2px 0;
+}
+
+.paragraph-text span.correct {
+  color: var(--correct);
+}
+
+.paragraph-text span.incorrect {
+  color: var(--incorrect);
+  background: var(--incorrect-bg);
+  text-decoration: underline wavy var(--incorrect);
+  text-underline-offset: 3px;
+}
+
+.paragraph-text span.active {
+  color: var(--text-primary);
+  background: var(--active-bg);
+  border-bottom: 2px solid var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    border-bottom-color: transparent;
+  }
+}
+
+/* ========== Stats ========== */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 12px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.stat-value.time {
+  color: var(--accent);
+}
+
+.stat-value.mistakes {
+  color: var(--incorrect);
+}
+
+.stat-value.wpm {
+  color: var(--correct);
+}
+
+.stat-value.cpm {
+  color: #c084fc;
+}
+
+/* ========== Accuracy Bar ========== */
+.accuracy-container {
+  margin-bottom: 24px;
+}
+
+.accuracy-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.accuracy-value {
+  color: var(--correct);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.accuracy-bar-bg {
+  height: 8px;
+  background: var(--bg-primary);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.accuracy-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--correct), #22d3ee);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* ========== Result Overlay ========== */
+.result-overlay {
+  margin-bottom: 20px;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-card {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 28px;
+  text-align: center;
+}
+
+.result-card h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.result-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.result-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ========== Reset Button ========== */
+.reset-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--bg-primary);
+  background: linear-gradient(135deg, var(--accent), #22d3ee);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.reset-btn:hover {
+  background: linear-gradient(135deg, var(--accent-hover), #67e8f9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.3);
+}
+
+.reset-btn:active {
+  transform: translateY(0);
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 600px) {
+  .game-container {
+    margin: 16px;
+    padding: 20px;
+  }
+
+  .game-title {
+    font-size: 1.5rem;
+  }
+
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .result-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .paragraph-text {
+    font-size: 1rem;
+  }
+}
